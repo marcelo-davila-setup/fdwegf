@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adriana Sousa - Especialista em Desenvolvimento Mental</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-light: #FFD700;
+            --gold-dark: #B8860B;
+            --bg-light: #F8F5F0;
+            --bg-gradient: linear-gradient(135deg, #F8F5F0 0%, #E8E5E0 100%);
+            --purple: #7C3AED;
+            --green: #10B981;
+            --dark: #1A2035;
+            --text: #33353A;
+            --white: #ffffff;
+            
+            --gradient-gold: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-light) 70%, var(--gold-dark) 100%);
+            --shadow-luxury: 0 15px 50px rgba(26, 32, 53, 0.2);
+            --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: 25px;
+            box-shadow: var(--shadow-luxury);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 3vw, 20px);
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 20px;
+        }
+
+        .location-info {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid var(--gold-primary);
+            margin-top: 20px;
+            display: none;
+        }
+
+        .location-info.show {
+            display: block;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .location-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .time-info {
+            font-size: 16px;
+            color: var(--purple);
+            margin-top: 8px;
+        }
+
+        /* Video Section */
+        .video-section {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-luxury);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .video-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-gold);
+        }
+
+        .video-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .benefits-card,
+        .obstacles-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-luxury);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .benefits-card {
+            border-left: 5px solid var(--green);
+        }
+
+        .obstacles-card {
+            border-left: 5px solid var(--purple);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .benefits-card .card-title {
+            color: var(--green);
+        }
+
+        .obstacles-card .card-title {
+            color: var(--purple);
+        }
+
+        .benefits-list,
+        .obstacles-list {
+            list-style: none;
+        }
+
+        .benefits-list li,
+        .obstacles-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            font-weight: 500;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .benefits-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .obstacles-list li::before {
+            content: "×";
+            position: absolute;
+            left: 0;
+            color: var(--purple);
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 50px 40px;
+            text-align: center;
+            box-shadow: var(--shadow-luxury);
+            border: 3px solid var(--gold-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .cta-badge {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .cta-title {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .price-section {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 2px solid var(--gold-primary);
+        }
+
+        .old-price {
+            font-size: 18px;
+            text-decoration: line-through;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .current-price {
+            font-size: 48px;
+            font-weight: 900;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .price-note {
+            font-size: 14px;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .cta-button {
+            background: var(--gradient-gold);
+            color: var(--dark);
+            border: none;
+            padding: 25px 50px;
+            font-size: 20px;
+            font-weight: 900;
+            border-radius: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-gold);
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            display: block;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .urgency-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .location-loading {
+            color: var(--purple);
+            font-style: italic;
+        }
+
+        /* MOBILE-FIRST RESPONSIVE DESIGN */
+        
+        /* Base mobile styles (320px+) */
+        body {
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100vw;
+            padding: 10px;
+            margin: 0 auto;
+        }
+
+        /* Header - Mobile First */
+        .header {
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .location-info {
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .location-text {
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .time-info {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Video - Mobile First */
+        .video-section {
+            padding: 20px 15px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+        }
+
+        .video-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            border-radius: 12px;
+            margin: 0 -5px;
+        }
+
+        .video-iframe {
+            border-radius: 12px;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+
+        /* Benefits - Mobile Stack */
+        .benefits-section {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .benefits-card,
+        .obstacles-card {
+            padding: 20px 15px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .benefits-list li,
+        .obstacles-list li {
+            font-size: 13px;
+            padding: 6px 0;
+            padding-left: 22px;
+            line-height: 1.4;
+        }
+
+        .benefits-list li::before,
+        .obstacles-list li::before {
+            font-size: 14px;
+        }
+
+        /* CTA - Mobile Optimized */
+        .cta-section {
+            padding: 25px 15px;
+            border-radius: 20px;
+        }
+
+        .cta-badge {
+            padding: 8px 20px;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .cta-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .cta-subtitle {
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .price-section {
+            padding: 20px 15px;
+            margin: 20px 0;
+        }
+
+        .old-price {
+            font-size: 14px;
+        }
+
+        .current-price {
+            font-size: 36px;
+        }
+
+        .price-note {
+            font-size: 12px;
+        }
+
+        .cta-button {
+            padding: 18px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            width: 100%;
+            min-height: 50px;
+            touch-action: manipulation;
+            -webkit-appearance: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .urgency-text {
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        /* Small phones (up to 375px) */
+        @media screen and (max-width: 375px) {
+            .container {
+                padding: 8px;
+            }
+            
+            .header,
+            .video-section,
+            .cta-section {
+                padding: 15px 12px;
+            }
+            
+            .main-title {
+                font-size: 22px;
+            }
+            
+            .current-price {
+                font-size: 32px;
+            }
+            
+            .benefits-card,
+            .obstacles-card {
+                padding: 15px 12px;
+            }
+        }
+
+        /* Medium phones (376px to 414px) */
+        @media screen and (min-width: 376px) and (max-width: 414px) {
+            .main-title {
+                font-size: 26px;
+            }
+            
+            .subtitle {
+                font-size: 15px;
+            }
+            
+            .current-price {
+                font-size: 38px;
+            }
+        }
+
+        /* Large phones (415px to 767px) */
+        @media screen and (min-width: 415px) and (max-width: 767px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .main-title {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .video-title {
+                font-size: 20px;
+            }
+            
+            .card-title {
+                font-size: 17px;
+            }
+            
+            .benefits-list li,
+            .obstacles-list li {
+                font-size: 14px;
+                padding: 8px 0;
+            }
+        }
+
+        /* Tablets Portrait (768px to 1024px) */
+        @media screen and (min-width: 768px) and (max-width: 1024px) {
+            .container {
+                max-width: 90%;
+                padding: 25px;
+            }
+            
+            .benefits-section {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+            
+            .main-title {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .header,
+            .video-section,
+            .cta-section {
+                padding: 30px 25px;
+            }
+        }
+
+        /* Desktop (1025px+) */
+        @media screen and (min-width: 1025px) {
+            .container {
+                max-width: 1200px;
+                padding: 20px;
+            }
+            
+            .main-title {
+                font-size: 48px;
+            }
+            
+            .subtitle {
+                font-size: 20px;
+            }
+            
+            .header,
+            .video-section,
+            .cta-section {
+                padding: 40px;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media screen and (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .video-section {
+                padding: 20px 15px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .benefits-section {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+        }
+
+        /* High DPI / Retina */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .cta-button,
+            .header,
+            .video-section,
+            .cta-section,
+            .benefits-card,
+            .obstacles-card {
+                border-width: 0.5px;
+            }
+        }
+
+        /* iOS Safari specific */
+        @supports (-webkit-touch-callout: none) {
+            .cta-button {
+                -webkit-appearance: none;
+            }
+            
+            .video-iframe {
+                -webkit-transform: translate3d(0,0,0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="main-title">ADRIANA SOUSA</h1>
+            <h2 class="subtitle">Especialista em Desenvolvimento Mental</h2>
+            
+            <div class="location-info" id="locationInfo">
+                <div class="location-text location-loading" id="locationText">
+                    Detectando sua localização...
+                </div>
+                <div class="time-info" id="timeInfo"></div>
+            </div>
+        </header>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <h3 class="video-title">Assista à Mensagem Especial da Adriana</h3>
+            <div class="video-container">
+                <iframe 
+                    class="video-iframe"
+                    src="https://player.vimeo.com/video/123456789?autoplay=1&muted=1"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Benefits vs Obstacles -->
+        <section class="benefits-section">
+            <div class="benefits-card">
+                <h3 class="card-title">✓ Com o Método da Adriana</h3>
+                <ul class="benefits-list">
+                    <li>Mente mais clara e focada em seus objetivos</li>
+                    <li>Autoconfiança genuína e duradoura</li>
+                    <li>Relacionamentos mais saudáveis e autênticos</li>
+                    <li>Controle emocional em situações desafiadoras</li>
+                    <li>Propósito de vida definido e motivação constante</li>
+                    <li>Paz interior e equilíbrio mental</li>
+                    <li>Capacidade de tomar decisões assertivas</li>
+                </ul>
+            </div>
+            
+            <div class="obstacles-card">
+                <h3 class="card-title">× Sem o Desenvolvimento Adequado</h3>
+                <ul class="obstacles-list">
+                    <li>Ansiedade constante e pensamentos negativos</li>
+                    <li>Insegurança e baixa autoestima</li>
+                    <li>Relacionamentos superficiais ou tóxicos</li>
+                    <li>Reações impulsivas e arrependimentos</li>
+                    <li>Sensação de estar "perdido" na vida</li>
+                    <li>Estresse crônico e sobrecarga mental</li>
+                    <li>Dificuldade para tomar decisões importantes</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-badge">Oferta Especial</div>
+            <h3 class="cta-title">Transforme Sua Mente em 30 Dias</h3>
+            <p class="cta-subtitle">
+                Acesso completo ao método que já transformou mais de 10.000 vidas
+            </p>
+            
+            <div class="price-section">
+                <div class="old-price">De R$ 197,00</div>
+                <div class="current-price">R$ 47,00</div>
+                <div class="price-note">Pagamento único • Acesso imediato • Garantia de 7 dias</div>
+            </div>
+            
+            <button class="cta-button" onclick="redirectToCheckout()">
+                Quero Transformar Minha Mente Agora
+            </button>
+            
+            <div class="urgency-text">
+                ⏰ Oferta válida apenas hoje • Restam poucas vagas
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Dados dos estados brasileiros
+        const ESTADOS_BRASIL = {
+            'AC': { nome: 'Acre', comidas: ['Baixaria', 'Pirarucu', 'Tacacá'], gentilico: 'Acreano' },
+            'AL': { nome: 'Alagoas', comidas: ['Sururu', 'Pitu', 'Caldinho de feijão'], gentilico: 'Alagoano' },
+            'AP': { nome: 'Amapá', comidas: ['Camarão no bafo', 'Vatapá', 'Açaí'], gentilico: 'Amapaense' },
+            'AM': { nome: 'Amazonas', comidas: ['Tambaqui', 'Pacu', 'Cupuaçu'], gentilico: 'Amazonense' },
+            'BA': { nome: 'Bahia', comidas: ['Acarajé', 'Vatapá', 'Moqueca'], gentilico: 'Baiano' },
+            'CE': { nome: 'Ceará', comidas: ['Baião de dois', 'Carne de sol', 'Tapioca'], gentilico: 'Cearense' },
+            'DF': { nome: 'Distrito Federal', comidas: ['Pão de açúcar', 'Pequi', 'Empadão'], gentilico: 'Brasiliense' },
+            'ES': { nome: 'Espírito Santo', comidas: ['Moqueca capixaba', 'Torta capixaba', 'Caranguejo'], gentilico: 'Capixaba' },
+            'GO': { nome: 'Goiás', comidas: ['Pequi', 'Empadão goiano', 'Pamonha'], gentilico: 'Goiano' },
+            'MA': { nome: 'Maranhão', comidas: ['Arroz de cuxá', 'Torta de camarão', 'Caldeirada'], gentilico: 'Maranhense' },
+            'MT': { nome: 'Mato Grosso', comidas: ['Maria Isabel', 'Pacu assado', 'Raspadinha'], gentilico: 'Mato-grossense' },
+            'MS': { nome: 'Mato Grosso do Sul', comidas: ['Sobá', 'Arroz carreteiro', 'Chipa'], gentilico: 'Sul-mato-grossense' },
+            'MG': { nome: 'Minas Gerais', comidas: ['Pão de queijo', 'Feijão tropeiro', 'Frango com quiabo'], gentilico: 'Mineiro' },
+            'PA': { nome: 'Pará', comidas: ['Tacacá', 'Maniçoba', 'Pato no tucupi'], gentilico: 'Paraense' },
+            'PB': { nome: 'Paraíba', comidas: ['Carne de sol', 'Rubacão', 'Chambaril'], gentilico: 'Paraibano' },
+            'PR': { nome: 'Paraná', comidas: ['Barreado', 'Pierogi', 'Pinhão'], gentilico: 'Paranaense' },
+            'PE': { nome: 'Pernambuco', comidas: ['Bolo de rolo', 'Cartola', 'Caldinho'], gentilico: 'Pernambucano' },
+            'PI': { nome: 'Piauí', comidas: ['Maria Isabel', 'Paçoca', 'Arroz com capote'], gentilico: 'Piauiense' },
+            'RJ': { nome: 'Rio de Janeiro', comidas: ['Feijoada', 'Biscoito Globo', 'Filé à Oswaldo Aranha'], gentilico: 'Carioca' },
+            'RN': { nome: 'Rio Grande do Norte', comidas: ['Ginga com tapioca', 'Carne de sol', 'Escondidinho'], gentilico: 'Potiguar' },
+            'RS': { nome: 'Rio Grande do Sul', comidas: ['Churrasco gaúcho', 'Arroz carreteiro', 'Chimarrão'], gentilico: 'Gaúcho' },
+            'RO': { nome: 'Rondônia', comidas: ['Tucumã', 'Pirarucu', 'Caldeirada'], gentilico: 'Rondoniense' },
+            'RR': { nome: 'Roraima', comidas: ['Damurida', 'Paçoca de banana', 'Peixe assado'], gentilico: 'Roraimense' },
+            'SC': { nome: 'Santa Catarina', comidas: ['Marreco recheado', 'Pirão de peixe', 'Tainha'], gentilico: 'Catarinense' },
+            'SP': { nome: 'São Paulo', comidas: ['Virado à paulista', 'Coxinha', 'Pizza'], gentilico: 'Paulista' },
+            'SE': { nome: 'Sergipe', comidas: ['Caranguejo', 'Moqueca sergipana', 'Queijadinha'], gentilico: 'Sergipano' },
+            'TO': { nome: 'Tocantins', comidas: ['Chambari', 'Peixe no leite de coco', 'Paçoca de carne'], gentilico: 'Tocantinense' }
+        };
+
+        // APIs de geolocalização com fallbacks
+        const GEO_APIS = [
+            {
+                url: 'https://ipapi.co/json/',
+                parser: (data) => ({ city: data.city, state: data.region_code, country: data.country_code })
+            },
+            {
+                url: 'https://ip-api.com/json/',
+                parser: (data) => ({ city: data.city, state: data.region, country: data.countryCode })
+            }
+        ];
+
+        let userLocation = null;
+
+        // Detectar localização do usuário
+        async function detectLocation() {
+            // Primeiro tenta geolocalização do navegador
+            if ('geolocation' in navigator) {
+                try {
+                    const position = await new Promise((resolve, reject) => {
+                        navigator.geolocation.getCurrentPosition(resolve, reject, {
+                            enableHighAccuracy: false,
+                            timeout: 5000,
+                            maximumAge: 300000
+                        });
+                    });
+                    
+                    const location = await reverseGeocode(position.coords.latitude, position.coords.longitude);
+                    if (location) return location;
+                } catch (error) {
+                    console.log('Geolocalização falhou, tentando IP:', error);
+                }
+            }
+
+            // Fallback para IP
+            return await detectLocationByIP();
+        }
+
+        // Geocodificação reversa
+        async function reverseGeocode(lat, lng) {
+            try {
+                const response = await fetch(
+                    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&addressdetails=1`
+                );
+                const data = await response.json();
+                
+                const state = detectStateFromAddress(data.address?.state);
+                const city = data.address?.city || data.address?.town || 'Brasil';
+                
+                return { city, state, detected: true };
+            } catch (error) {
+                console.log('Erro na geocodificação:', error);
+                return null;
+            }
+        }
+
+        // Detecção por IP
+        async function detectLocationByIP() {
+            for (const api of GEO_APIS) {
+                try {
+                    const response = await fetch(api.url);
+                    const data = await response.json();
+                    const location = api.parser(data);
+                    
+                    if (location.city && location.country === 'BR') {
+                        return {
+                            city: location.city,
+                            state: location.state || 'SP',
+                            detected: true
+                        };
+                    }
+                } catch (error) {
+                    continue;
+                }
+            }
+            
+            // Fallback final
+            return { city: 'São Paulo', state: 'SP', detected: false };
+        }
+
+        // Mapear nomes de estados para códigos
+        function detectStateFromAddress(stateName) {
+            if (!stateName) return 'SP';
+            
+            const mapping = {
+                'São Paulo': 'SP', 'Rio de Janeiro': 'RJ', 'Minas Gerais': 'MG',
+                'Bahia': 'BA', 'Paraná': 'PR', 'Rio Grande do Sul': 'RS'
+            };
+            
+            for (const [nome, codigo] of Object.entries(mapping)) {
+                if (stateName.includes(nome)) return codigo;
+            }
+            
+            return stateName.length === 2 ? stateName.toUpperCase() : 'SP';
+        }
+
+        // Atualizar display de localização
+        function updateLocationDisplay(location) {
+            const locationInfo = document.getElementById('locationInfo');
+            const locationText = document.getElementById('locationText');
+            const timeInfo = document.getElementById('timeInfo');
+            
+            if (!location) {
+                locationText.textContent = 'Localização não detectada';
+                locationInfo.classList.add('show');
+                return;
+            }
+            
+            userLocation = location;
+            const estado = ESTADOS_BRASIL[location.state] || ESTADOS_BRASIL['SP'];
+            const comida = estado.comidas[Math.floor(Math.random() * estado.comidas.length)];
+            
+            const agora = new Date();
+            const hora = agora.getHours();
+            const minuto = agora.getMinutes().toString().padStart(2, '0');
+            
+            let saudacao = '';
+            if (hora >= 5 && hora < 12) saudacao = 'Bom dia';
+            else if (hora >= 12 && hora < 18) saudacao = 'Boa tarde';
+            else saudacao = 'Boa noite';
+            
+            // Mensagem construtiva e motivadora
+            const mensagens = [
+                `${saudacao}! Pessoas determinadas de ${location.city}, ${estado.nome} estão transformando suas vidas`,
+                `${location.city} - terra de ${comida} e pessoas corajosas como você`,
+                `${estado.gentilico}s como você têm força para grandes transformações`,
+                `De ${location.city} para o mundo - sua jornada de crescimento começa aqui`
+            ];
+            
+            const mensagem = mensagens[Math.floor(Math.random() * mensagens.length)];
+            
+            locationText.innerHTML = `
+                <strong>${mensagem}</strong><br>
+                <small>🍽️ Que tal experimentar ${comida} para celebrar sua decisão?</small>
+            `;
+            
+            timeInfo.textContent = `📍 ${location.city}, ${estado.nome} • 🕐 ${hora}:${minuto}`;
+            
+            locationInfo.classList.add('show');
+        }
+
+        // Redirecionar para checkout
+        function redirectToCheckout() {
+            // Preparar dados para tracking
+            const params = new URLSearchParams();
+            
+            if (userLocation) {
+                params.append('city', userLocation.city);
+                params.append('state', userLocation.state);
+            }
+            
+            params.append('product', 'desenvolvimento_mental');
+            params.append('price', '47');
+            params.append('source', 'landing_adriana');
+            
+            // URL do checkout (substitua pela URL real)
+            const checkoutUrl = `https://checkout.exemplo.com/?${params.toString()}`;
+            
+            // Abrir em nova aba para não perder a landing
+            window.open(checkoutUrl, '_blank');
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Iniciando detecção de localização...');
+            
+            try {
+                const location = await detectLocation();
+                updateLocationDisplay(location);
+                console.log('✅ Localização detectada:', location);
+            } catch (error) {
+                console.log('❌ Erro na detecção:', error);
+                updateLocationDisplay(null);
+            }
+        });
+
+        // Expor função globalmente
+        window.redirectToCheckout = redirectToCheckout;
+    </script>
+</body>
+</html>
